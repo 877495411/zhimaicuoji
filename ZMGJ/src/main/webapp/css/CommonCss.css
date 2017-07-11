@@ -1,0 +1,100 @@
+﻿/*浮动清除优化方案，兼容各浏览器*/
+.clearfloat:after {
+    display: block;
+    clear: both;
+    content: "";
+    visibility: hidden;
+    height: 0;
+}
+.clearfloat {
+    zoom: 1;
+}
+* {
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    tap-highlight-color: rgba(0,0,0,0);
+    -ms-tap-highlight-color: rgba(0,0,0,0);
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
+    outline: none;
+}
+
+a {
+    color: #444444;
+    cursor: pointer;
+    text-decoration: none;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+input,image{
+    vertical-align: middle;
+}
+ul li {
+    list-style: none;
+     text-decoration: none;
+}
+a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, body, canvas, caption, center, cite, code, dd, del, details, dfn, div, dl, dt, em, embed, fieldset, figcaption, figure, footer, form, h1, h2, h3, h4, h5, h6, header, hgroup, html, i, iframe, img, ins, kbd, label, legend, li, mark, menu, nav, object, ol, output, p, pre, q, ruby, s, samp, section, small, span, strike, strong, sub, summary, sup, table, tbody, td, tfoot, th, thead, time, tr, tt, u, ul, var, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font: inherit;
+    vertical-align: baseline;
+}
+a, img {
+    border: 0 none;
+}
+body {
+    min-width: 1200px;
+    padding: 0;
+    margin: 0 auto!important;
+    font-size: 14px;
+    list-style-type: none;
+    color: #444444;
+    background: #fff;
+    -webkit-font-smoothing: antialiased;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    font-family:'Microsoft YaHei', "Helvetica Neue",Helvetica,Arial,sans-serif,Droid,Sans,Verdana;
+    -webkit-text-size-adjust: none;
+}
+
+input, button, select, textarea {
+    outline: none;
+    font-family:'Microsoft YaHei', "Helvetica Neue",Helvetica,Arial,sans-serif,Droid,Sans,Verdana;
+}
+
+input, textarea {
+    outline: none;
+	border:0;
+}
+.flex{
+    display: -webkit-box!important;
+    display: -webkit-flex!important;
+    display: -ms-flexbox!important;
+    display: flex!important;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    padding: 0;
+}
+.flex>.cell{
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    width: 0;
+    -webkit-flex-basis: 0;
+    -ms-flex-preferred-size: 0;
+    flex-basis: 0;
+    max-width: 100%;
+    display: block;
+    padding: 0;
+    position: relative;
+}
+.flex, .flex *,
+.flex :after,
+.flex :before {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+

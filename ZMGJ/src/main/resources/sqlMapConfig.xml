@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMapConfig PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN"     
+"http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
+<sqlMapConfig>
+	<settings useStatementNamespaces="true" />
+	<!-- 引入sqlmap的配置文件 -->
+	<sqlMap resource="com/yuguo/net/common/config/ibatis/res/t_sys_advertise_SqlMap.xml" />
+	<sqlMap resource="com/yuguo/net/common/config/ibatis/res/t_sys_picture_info_SqlMap.xml" />
+	<sqlMap resource="com/yuguo/net/common/config/ibatis/res/t_sys_dictionary_SqlMap.xml" />
+	<sqlMap resource="com/yuguo/net/common/config/ibatis/res/t_mall_goods_info_SqlMap.xml" />
+	<sqlMap resource="com/yuguo/net/common/config/ibatis/res/t_mall_goods_SqlMap.xml" />
+	<sqlMap resource="com/yuguo/net/common/config/ibatis/res/t_sys_merchant_info_SqlMap.xml" />
+	<sqlMap resource="com/yuguo/net/common/config/ibatis/res/t_sys_user_authority_SqlMap.xml" />
+	<sqlMap resource="com/yuguo/net/common/config/ibatis/res/t_sys_user_role_SqlMap.xml" />
+	<sqlMap resource="com/yuguo/net/common/config/ibatis/res/t_sys_advertise_admin_SqlMap.xml" />
+</sqlMapConfig>
