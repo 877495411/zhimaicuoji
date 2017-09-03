@@ -120,6 +120,11 @@ public class SysAdvertiseController {
 	public @ResponseBody
 	Map<String, Object> addAdvertise(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
+		int maxIndex = 1;
+		List<TSysAdvertise> list = this.getMaxIndex();
+		if(list!=null && list.size()==1){
+			maxIndex += list.get(0).getAdIndex()==null?0:list.get(0).getAdIndex();
+		}
 
 		String adId = GrnerateUUID.getUUID();
 		String adCustomerId = request.getSession().getAttribute("userName") + "";
@@ -148,6 +153,7 @@ public class SysAdvertiseController {
 		sysAd.setImageUrl(images);
 		sysAd.setAdDetailDesc(request.getParameter("adXq"));
 		sysAd.setRemark1("0");
+		sysAd.setAdIndex(maxIndex);
 		sysAd.setRemark(request.getParameter("goType"));
 		byte[] d = request.getParameter("adDesc").getBytes();
 		sysAd.setAdDesc(d);
@@ -159,6 +165,21 @@ public class SysAdvertiseController {
 		return map;
 	}
 
+	/**
+	 * 获取 广告 的 最大index记录
+	 * @return
+	 * @throws Exception
+	 */
+	public List<TSysAdvertise> getMaxIndex() throws Exception{
+		TSysAdvertiseExample example = new TSysAdvertiseExample();
+		TSysAdvertiseExample.Criteria criteria = example.createCriteria();
+		example.setFromNumber(0);
+		example.setToNumber(1);
+		example.setOrderByClause("tSysAdvertise.AD_INDEX DESC");
+		List<TSysAdvertise> list = ISysAdvertiseService.selectByExample(example);
+		
+		return list;
+	}
 	/**
 	 * 检查广告标题是否已经存在 ture存在 ，false 不存在
 	 * 
@@ -816,10 +837,12 @@ public class SysAdvertiseController {
 	public @ResponseBody
 	Map<String, Object> saveIndexAd(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Map<String, Object> jsonResult = new HashMap<String, Object>();
+		int maxIndex = 1;
 		String adTitle = request.getParameter("adTitle");
 		String adType = request.getParameter("adType");
 		String images = request.getParameter("adImages");
 		String adUrl = request.getParameter("adUrl");
+		String dlTitle = request.getParameter("dlTitle");
 		// int adPage = Integer.parseInt(request.getParameter("adPage"));
 		// int adPosition =
 		// Integer.parseInt(request.getParameter("adPosition"));
@@ -827,6 +850,10 @@ public class SysAdvertiseController {
 		String strDesc = request.getParameter("adDesc");
 		String adDetailDesc = request.getParameter("adDetailDesc");
 		if (saveType == 0) {
+			List<TSysAdvertise> list = this.getMaxIndex();
+			if(list!=null && list.size()==1){
+				maxIndex += list.get(0).getAdIndex()==null?0:list.get(0).getAdIndex();
+			}
 			String adId = GrnerateUUID.getUUID();
 			TSysAdvertise sysAd = new TSysAdvertise();
 			sysAd.setAdId(adId);
@@ -838,6 +865,8 @@ public class SysAdvertiseController {
 			sysAd.setAdDesc(adDesc);
 			sysAd.setAdDetailDesc(adDetailDesc);
 			sysAd.setCreateTime(new Date());
+			sysAd.setRemark(dlTitle);
+			sysAd.setAdIndex(maxIndex);
 			sysAd.setRemark1("0"); // 是否已经上传
 
 			ISysAdvertiseService.addAdvertise(sysAd);
@@ -859,6 +888,7 @@ public class SysAdvertiseController {
 					sysAd.setAdDesc(adDesc);
 					sysAd.setAdDetailDesc(adDetailDesc);
 					sysAd.setCreateTime(new Date());
+					sysAd.setRemark(dlTitle);
 					sysAd.setRemark1("0"); // 是否已经上传
 
 					ISysAdvertiseService.updateAdInfo(sysAd);

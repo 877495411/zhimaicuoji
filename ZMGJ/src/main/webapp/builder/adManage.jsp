@@ -15,6 +15,7 @@
 	<link rel="stylesheet" type="text/css" href="${ctx}/common/kindeditor/plugins/code/prettify.css"/>
 </head>
 <script type="text/javascript">
+var ctx = "${ctx}";
 var ggeditor1;
 var ggeditor;
 var ggeditor4;
@@ -102,21 +103,14 @@ function adAddImg(imgId){
 <div id="adLeft">
 	<div class="divAd" onclick="showDivInfo();">
 		<p id="allAd">
-			<img  id="adtbimg" src="${ctx}/images/backStage/r3.png" alt="" /> 所有文章</p>
+			<img  id="adtbimg" src="${ctx}/images/backStage/r3.png" alt="" /> 中文文章</p>
 	</div>
 	<div style="display: block;" id="adlf"></div>
-<!--     <div class="divLcgl"> -->
-<!--     	<p onclick="showLcInfo();"> -->
-<%--     		<img id="lctbimg" src="${ctx}/images/backStage/r3.png" alt="" /> 楼层管理</p> --%>
-<!--     </div> -->
-<!--     <div style="display:none;" id="Lcdiv"></div> -->
-<!--     <div class="divNotice"> -->
-<!--     	<p onclick="showNotice();"> -->
-<%--     		<img id="noticeimg" src="${ctx}/images/backStage/r3.png" alt="" /> 公告管理</p> --%>
-<!--     </div> -->
-<!--     <div style="display:none;" id="notdiv"> -->
-<!--     	&lt;&lt;&nbsp;&lt;&nbsp;&gt;&nbsp;&gt;&gt; -->
-<!--     </div> -->
+	<div class="divAd" onclick="showEnglish();">
+		<p id="allAd1">
+			<img  id="adtbimg1" src="${ctx}/images/backStage/r3.png" alt="" />english text</p>
+	</div>
+	<div style="display: block;" id="englishAd"></div>
 </div>
 <div id="lcRight" style="display: none;">
 	<div class="bt" >
@@ -418,26 +412,47 @@ function adShowType(){
 		success:function(data){
 			if(data.result){
 				var str="";
+				var englishStr = "";
 				$.each(data.treeDic,function(j,jtem){
 					var strli="";
 					 var strl ="";
-					 str+="<input type='hidden' id='falgIpt"+j+"' name='falgIpt"+j+"' value='1' />";
-				     str+="<p class='bt' onclick='adShowTitle("+'"'+jtem.id+'"'+","+j+",this);'><span></span>"+jtem.dicName;
-				     if(jtem.childList!=null){
-					     $.each(jtem.childList,function(k,jtem1){
-					    	 if(jtem1.childList!=null){
-						    	 var strl2="";
-					    		 $.each(jtem1.childList,function(m,jtem2){
-					    		 	strl2 += "<li class='thridTreeLi' onclick='adShowTitle("+'"'+jtem2.id+'"'+","+m+",this);'><div class='thridDiv'>"+jtem2.dicName+"</div><ul class='thridTree'></ul></li>";
-					    		 })
-					    	 }
-						     strli+="<li class='twoTreeLi' onclick='adShowTitle("+'"'+jtem1.id+'"'+","+k+",this);'>"+jtem1.dicName+"<ul class='twoTree'>"+strl2+"</ul></li>";
-					     })
-				     }
-				     str+="</p><ul id='adUl"+j+"'>"+strli+"</ul>";
+					 if(jtem.dicKey=='1'){
+						 str+="<input type='hidden' id='falgIpt"+j+"' name='falgIpt"+j+"' value='1' />";
+					     str+="<p class='bt' onclick='adShowTitle("+'"'+jtem.id+'"'+","+j+",this);'><span></span>"+jtem.dicName;
+					     if(jtem.childList!=null){
+						     $.each(jtem.childList,function(k,jtem1){
+						    	 if(jtem1.childList!=null){
+							    	 var strl2="";
+						    		 $.each(jtem1.childList,function(m,jtem2){
+						    		 	strl2 += "<li class='thridTreeLi' onclick='adShowTitle("+'"'+jtem2.id+'"'+","+m+",this);'><div class='thridDiv'>"+jtem2.dicName+"</div><ul class='thridTree'></ul></li>";
+						    		 })
+						    	 }
+							     strli+="<li class='twoTreeLi' onclick='adShowTitle("+'"'+jtem1.id+'"'+","+k+",this);'>"+jtem1.dicName+"<ul class='twoTree'>"+strl2+"</ul></li>";
+						     })
+					     }
+					     str+="</p><ul id='adUl"+j+"'>"+strli+"</ul>"; 
+					 }else if(jtem.dicKey=='2'){
+						 englishStr+="<input type='hidden' id='falgIpt"+j+"' name='falgIpt"+j+"' value='1' />";
+						 englishStr+="<p class='bt' onclick='adShowTitle("+'"'+jtem.id+'"'+","+j+",this);'><span></span>"+jtem.dicName;
+					     if(jtem.childList!=null){
+						     $.each(jtem.childList,function(k,jtem1){
+						    	 if(jtem1.childList!=null){
+							    	 var englishStr2="";
+						    		 $.each(jtem1.childList,function(m,jtem2){
+						    			 englishStr2 += "<li class='thridTreeLi' onclick='adShowTitle("+'"'+jtem2.id+'"'+","+m+",this);'><div class='thridDiv'>"+jtem2.dicName+"</div><ul class='thridTree'></ul></li>";
+						    		 })
+						    	 }
+							     strli+="<li class='twoTreeLi' onclick='adShowTitle("+'"'+jtem1.id+'"'+","+k+",this);'>"+jtem1.dicName+"<ul class='twoTree'>"+englishStr2+"</ul></li>";
+						     })
+					     }
+					     englishStr+="</p><ul id='adUl"+j+"'>"+strli+"</ul>";
+					 }
+					 
 				});
 				$("#adlf").empty();
 	 			$("#adlf").append(str);
+	 			$("#englishAd").empty();
+	 			$("#englishAd").append(englishStr);
 			}
 		},
 		error:function(data){
@@ -518,6 +533,17 @@ function showDivInfo(){
 	document.getElementById("adIdIpt").value="";
 	document.getElementById("adIsUpload").value="";
 	$("#loadMB").hide();
+}
+
+function showEnglish(){
+	var a  = document.getElementById("englishAd").style.display;
+	if(a == 'block'){
+		document.getElementById('adtbimg1').src="${ctx}/images/backStage/r3.png";
+		document.getElementById("englishAd").style.display="none";
+	}else{
+		document.getElementById('adtbimg1').src="${ctx}/images/backStage/r4.png";
+		document.getElementById("englishAd").style.display="block";
+	}
 }
 /*广告类的下的广告*/
 function showAdTitleList(obj,type,Index){
@@ -910,7 +936,7 @@ function lcIsNull(){
 /***end***********************************************************/
 /*创建广告div控制*/
 function addOnclick(){
-	$("#addAd").css({height:"860px"});
+	$("#addAd").css({height:"900px"});
 	$("#mb").css({display:"block"});
 // 	document.getElementById("ggPage1").value="";
 // 	document.getElementById("ggym1").value="";

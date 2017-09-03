@@ -22,6 +22,10 @@
 	   	    <span class="f6014">*</span><span>标&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;题:</span>
 	       <textarea  maxlength="300" id="lmmd" title="最多输入150个字符" name="lmmd"></textarea>
 	   </label>
+	   <label style="padding-right: 7px;padding-left: 8px;">
+	   	    <span class="f6014"></span><span>段落标题:</span>
+	       <input type="text" name="duanluo" id="duanluo" style="width: 70%"/>
+	   </label>
 	</div>
 	<div id="indexLbDiv" style="display:none;">
          <div class="tpspBigBox">
@@ -80,6 +84,7 @@ $(function () {
 						$("#indexQtDiv").css({display:"block"});
 						$("#indexLbDiv").css({display:"none"});
 						document.getElementById("lmmd").value=data.adAllInfo.adDetailDesc;
+						document.getElementById("duanluo").value=data.adAllInfo.remark;
 // 						document.getElementById("adUrlIpt").value=data.adAllInfo.adUrl;
 						if(data.adAllInfo.imageUrl!=null && data.adAllInfo.imageUrl!=""){
 // 							document.getElementById('imgOne').src="";
@@ -245,6 +250,7 @@ function IndexChangeData(adType,adPage,adTitle,adPosition,saveType){
 		adDesc=$("#ggms1").val();
 	}
 	var adId = $("#adIdIpt").val();
+	var dlTitle = $("#duanluo").val();
     $.ajax({
 		type:"post",
 		dataType:"json",
@@ -258,7 +264,8 @@ function IndexChangeData(adType,adPage,adTitle,adPosition,saveType){
 			"adImages":adImages,
 			"saveType":saveType,
 			"adId":adId,
-			"adDesc":adDesc
+			"adDesc":adDesc,
+			"dlTitle":dlTitle
 		},
 		url:"${ctx}/system/advertise/saveIndexAd.do",
 		success:function(data){
@@ -316,6 +323,7 @@ function clearInputValue(){
 	document.getElementById("lmmd").value="";
 // 	document.getElementById("adUrlIpt").value="";
 	document.getElementById("gglx").value="";
+	document.getElementById("duanluo").value="";
 	document.getElementById("imgUrlxg").value="";
 	document.getElementById("adIdIpt").value="";
 	document.getElementById("adIsUpload").value="";

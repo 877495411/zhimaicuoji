@@ -5648,6 +5648,7 @@ _plugin('core', function(K) {
 				checked : curVal === val,
 				click : function() {
 					self.exec('fontsize', val).hideMenu();
+					$(".ke-icon-fontsize").css({'background-image':'url('+ctx+'/common/kindeditor/themes/default/fontsize.png)','background-position':'0 '+i*(-16)+'px'});
 				}
 			});
 		});
